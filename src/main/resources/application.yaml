@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: booking-system
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booking
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    fail-on-missing-locations: true
+
