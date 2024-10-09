@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import kg.epam.booking.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,13 @@ public class Booking {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id") // Specify the foreign key column name
+    @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    private String customerName;
-    private String customerEmail;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private boolean isActive;

@@ -25,8 +25,8 @@ CREATE TABLE if not exists booking
     check_out_date DATE           NOT NULL,
     total_price    DECIMAL(10, 2) NOT NULL,
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE, -- Updated to my_user
-    FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE -- Added reference to hotel
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists review
@@ -38,7 +38,7 @@ CREATE TABLE if not exists review
     comment    TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- Updated to my_user
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 
