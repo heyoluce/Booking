@@ -1,4 +1,12 @@
-CREATE TABLE hotel
+create table if not exists users
+(
+    id       bigserial primary key,
+    name     varchar(255) not null,
+    username varchar(255) not null unique,
+    password varchar(255) not null
+);
+
+CREATE TABLE if not exists hotel
 (
     id              SERIAL PRIMARY KEY,
     name            VARCHAR(255)   NOT NULL,
@@ -8,31 +16,20 @@ CREATE TABLE hotel
     rating          DECIMAL(2, 1)  CHECK (rating >= 1.0 AND rating <= 5.0) NOT NULL
 );
 
-CREATE TABLE my_user  -- Updated table name for consistency
-(
-    id         SERIAL PRIMARY KEY,
-    username   VARCHAR(50) UNIQUE  NOT NULL,
-    password   VARCHAR(255)        NOT NULL,
-    email      VARCHAR(255) UNIQUE NOT NULL,
-    first_name VARCHAR(100),
-    last_name  VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE booking
+CREATE TABLE if not exists booking
 (
     id             SERIAL PRIMARY KEY,
     user_id        INT            NOT NULL,
-    hotel_id       INT            NOT NULL, -- Changed room_id to hotel_id for consistency with the review table
+    hotel_id INT NOT NULL,
     check_in_date  DATE           NOT NULL,
     check_out_date DATE           NOT NULL,
     total_price    DECIMAL(10, 2) NOT NULL,
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES my_user (id) ON DELETE CASCADE, -- Updated to my_user
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE, -- Updated to my_user
     FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE -- Added reference to hotel
 );
 
-CREATE TABLE review
+CREATE TABLE if not exists review
 (
     id         SERIAL PRIMARY KEY,
     hotel_id   INT NOT NULL,
@@ -41,14 +38,13 @@ CREATE TABLE review
     comment    TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES my_user (id) ON DELETE CASCADE -- Updated to my_user
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE -- Updated to my_user
 );
 
-CREATE TABLE image
+
+create table if not exists hotels_images
 (
-    id         SERIAL PRIMARY KEY,
-    hotel_id   INT          NOT NULL,
-    image_url  VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE
+    hotel_id bigint       not null,
+    image    varchar(255) not null,
+    constraint fk_hotels_images_hotels foreign key (hotel_id) references hotel (id) on delete cascade on update no action
 );

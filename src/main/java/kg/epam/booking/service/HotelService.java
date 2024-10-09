@@ -2,6 +2,7 @@ package kg.epam.booking.service;
 
 
 import kg.epam.booking.domain.entities.Hotel;
+import kg.epam.booking.domain.exception.ResourceNotFoundException;
 import kg.epam.booking.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,6 @@ public class HotelService {
     }
 
     public Hotel getHotelById(Long id) {
-        return hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
+        return hotelRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }
