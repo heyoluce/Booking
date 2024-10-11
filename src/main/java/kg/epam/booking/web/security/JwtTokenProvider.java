@@ -13,6 +13,7 @@ import kg.epam.booking.domain.exception.AccessDeniedException;
 import kg.epam.booking.service.UserService;
 import kg.epam.booking.service.props.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +36,7 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
     private final UserService userService;
+
     private SecretKey key;
 
     @PostConstruct

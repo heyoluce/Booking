@@ -27,7 +27,7 @@ public class HotelService {
     }
 
     public Page<Hotel> getAll(Pageable pageable) {
-        return hotelRepository.getAll(pageable);
+        return hotelRepository.findAll(pageable);
     }
 
     public Hotel create(Hotel hotel) {

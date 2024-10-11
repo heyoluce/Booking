@@ -39,14 +39,14 @@ public class ApplicationConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final MinioProperties minioProperties;
 
-    @Bean
-    public MinioClient minioClient() {
-        return MinioClient.builder()
-                .endpoint(minioProperties.getUrl())
-                .credentials(minioProperties.getAccessKey(),
-                        minioProperties.getSecretKey())
-                .build();
-    }
+//    @Bean
+//    public MinioClient minioClient() {
+//        return MinioClient.builder()
+//                .endpoint(minioProperties.getUrl())
+//                .credentials(minioProperties.getAccessKey(),
+//                        minioProperties.getSecretKey())
+//                .build();
+//    }
 
 
     @Bean
@@ -104,7 +104,7 @@ public class ApplicationConfig {
                                 )
                 )
                 .info(new Info()
-                        .title("Task API")
+                        .title("Booking API")
                         .description("Demo Spring Boot application")
                         .version("1.0")
                 );

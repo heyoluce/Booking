@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    Page<Booking> getAll(Pageable pageable);
+    Page<Booking> findAll(Pageable pageable);
 
     Page<Booking> getBookingByHotelId(Long id, Pageable pageable);
 
