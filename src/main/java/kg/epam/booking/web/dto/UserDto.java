@@ -16,8 +16,8 @@ public class UserDto {
             description = "User id",
             example = "1"
     )
-    @NotNull(
-            message = "Id must be not null."
+    @JsonProperty(
+            access = JsonProperty.Access.READ_ONLY
     )
     private Long id;
 
@@ -57,15 +57,5 @@ public class UserDto {
             message = "Password must be not null.")
     private String password;
 
-    @Schema(
-            description = "User password confirmation"
-    )
-    @JsonProperty(
-            access = JsonProperty.Access.WRITE_ONLY
-    )
-    @NotNull(
-            message = "Password confirmation must be not null."
-    )
-    private String passwordConfirmation;
 
 }

@@ -58,12 +58,7 @@ public class UserService {
                 user.getUsername()).isPresent()) {
             throw new IllegalStateException("User already exists.");
         }
-        if (!user.getPassword().equals(
-                user.getPasswordConfirmation())) {
-            throw new IllegalStateException(
-                    "Password and password confirmation do not match."
-            );
-        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Set<Role> roles = Set.of(Role.ROLE_USER);
         user.setRoles(roles);
