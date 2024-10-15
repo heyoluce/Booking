@@ -35,5 +35,6 @@ public class Booking {
 
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
+
     private boolean isActive;
 }

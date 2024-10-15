@@ -11,10 +11,10 @@ public class BookingDto {
     private Long id;
 
     @NotNull(message = "Hotel ID must not be null")
-    private Long hotelId; // Только идентификатор отеля, чтобы не загружать всю сущность
+    private Long hotelId;
 
     @NotNull(message = "User ID must not be null")
-    private Long userId;  // Только идентификатор пользователя
+    private Long userId;
 
     @NotNull(message = "Check-in date must not be null")
     @Future(message = "Check-in date must be in the future")

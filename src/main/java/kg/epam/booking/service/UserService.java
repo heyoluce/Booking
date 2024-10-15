@@ -5,6 +5,9 @@ import kg.epam.booking.domain.enums.Role;
 import kg.epam.booking.domain.exception.ResourceNotFoundException;
 import kg.epam.booking.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,5 +73,19 @@ public class UserService {
     //    @CacheEvict(value = "UserService::getById", key = "#id")
     public void delete(final Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Object getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                return userDetails;
+            } else {
+                return authentication.getPrincipal();
+            }
+        }
+        return null;
     }
 }

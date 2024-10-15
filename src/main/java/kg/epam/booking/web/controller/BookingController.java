@@ -2,6 +2,8 @@ package kg.epam.booking.web.controller;
 
 import kg.epam.booking.domain.entities.Booking;
 import kg.epam.booking.service.BookingService;
+import kg.epam.booking.web.dto.BookingDto;
+import kg.epam.booking.web.mappers.BookingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +18,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
-        Booking createdBooking = bookingService.createBooking(booking);
+    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
+        Booking createdBooking = bookingService.createBooking(bookingDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
     }
 
@@ -27,8 +29,14 @@ public class BookingController {
         return ResponseEntity.ok(booking);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Page<Booking>> getAllBookings(Pageable pageable) {
+        Page<Booking> bookings = bookingService.getAllBookings(pageable);
+        return ResponseEntity.ok(bookings);
+    }
+
+    @GetMapping()
+    public ResponseEntity<Page<Booking>> getUserBookings(Pageable pageable) {
         Page<Booking> bookings = bookingService.getAllBookings(pageable);
         return ResponseEntity.ok(bookings);
     }
@@ -44,4 +52,5 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return ResponseEntity.noContent().build();
     }
+
 }
