@@ -1,30 +1,45 @@
 package kg.epam.booking.web.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class HotelDto {
+
+    @JsonProperty(
+            access = JsonProperty.Access.READ_ONLY
+    )
     private Long id;
 
-    @NotBlank(message = "Hotel name must not be empty")
+    @NotBlank(message = "Hotel name is required")
     private String name;
 
-    @NotBlank(message = "City must not be empty")
+    @NotBlank(message = "City is required")
     private String city;
 
     private String description;
 
-    @Positive(message = "Price per night must be positive")
-    private double pricePerNight;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price per night must be greater than 0")
+    @Digits(integer = 10, fraction = 2, message = "Invalid price format")
+    private BigDecimal pricePerNight;
 
-    @Positive(message = "Rating must be positive")
+    @Min(value = 0, message = "Rating cannot be negative")
+    @Max(value = 5, message = "Rating cannot be more than 5")
     private double rating;
 
-    @Positive(message = "Total rooms must be positive")
+    @Min(value = 1, message = "Total rooms must be at least 1")
     private int totalRooms;
 
-    @Positive(message = "Booked rooms must be positive")
+    @Min(value = 0, message = "Booked rooms cannot be negative")
     private int bookedRooms;
+
 }

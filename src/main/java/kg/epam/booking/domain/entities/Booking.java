@@ -1,20 +1,18 @@
 package kg.epam.booking.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import kg.epam.booking.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "bookings")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,8 +31,15 @@ public class Booking {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "total_price")
+    private BigDecimal totalPrice;
+
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
-    private boolean isActive;
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    @Column(name = "is_active")
+    private boolean active;
 }

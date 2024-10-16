@@ -18,7 +18,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     Page<Booking> getBookingByHotelId(Long id, Pageable pageable);
 
-    Page<Booking> getAllByUserId(Long id, Pageable pageable);
+    Page<Booking> getByUserIdAndActiveIsTrue(Long id, Pageable pageable);
 
     @Query("SELECT COUNT(b) FROM Booking b WHERE b.hotel = :hotel AND "
             + "(b.checkInDate < :checkOutDate AND b.checkOutDate > :checkInDate)")

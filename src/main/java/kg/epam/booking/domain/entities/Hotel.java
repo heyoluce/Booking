@@ -1,15 +1,16 @@
 package kg.epam.booking.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "hotels")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +19,16 @@ public class Hotel {
     private String name;
     private String city;
     private String description;
-    private double pricePerNight;
+
+    @Column(name = "price_per_night")
+    private BigDecimal pricePerNight;
+
     private double rating;
 
+    @Column(name = "total_rooms")
     private int totalRooms;
+
+    @Column(name = "booked_rooms")
     private int bookedRooms;
 
 }

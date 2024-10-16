@@ -27,13 +27,6 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
-//    @ExceptionHandler(ResourceMappingException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ExceptionBody handleResourceMapping(
-//            final ResourceMappingException e) {
-//        return new ExceptionBody(e.getMessage());
-//    }
-
     @ExceptionHandler(IllegalStateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionBody handleIllegalState(final IllegalStateException e) {
@@ -94,9 +87,4 @@ public class ControllerAdvice {
         return new ExceptionBody("Internal error");
     }
 
-//    @ExceptionHandler(ImageUploadException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ExceptionBody handleImageUpload(final ImageUploadException e) {
-//        return new ExceptionBody(e.getMessage());
-//    }
 }

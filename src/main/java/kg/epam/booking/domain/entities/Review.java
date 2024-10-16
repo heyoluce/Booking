@@ -1,11 +1,6 @@
 package kg.epam.booking.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import kg.epam.booking.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "reviews")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,11 +20,11 @@ public class Review {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // Specify the foreign key column name
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id") // Specify the foreign key column name
+    @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     private int rating;

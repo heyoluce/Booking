@@ -1,58 +1,61 @@
-create table if not exists users
+CREATE TABLE IF NOT EXISTS users
 (
-    id       bigserial primary key,
-    name     varchar(255) not null,
-    username varchar(255) not null unique,
-    password varchar(255) not null
+    id       BIGSERIAL PRIMARY KEY,
+    name     VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE if not exists hotel
+CREATE TABLE IF NOT EXISTS hotels
 (
-    id              SERIAL PRIMARY KEY,
-    name            VARCHAR(255)   NOT NULL,
-    city            VARCHAR(255)   NOT NULL,
+    id              BIGSERIAL PRIMARY KEY,
+    name            VARCHAR(255)                                          NOT NULL,
+    city            VARCHAR(255)                                          NOT NULL,
     description     TEXT,
-    price_per_night DECIMAL(10, 2) NOT NULL,
-    rating          DECIMAL(2, 1)  CHECK (rating >= 1.0 AND rating <= 5.0) NOT NULL
+    price_per_night DECIMAL(10, 2)                                        NOT NULL,
+    rating          DECIMAL(2, 1) CHECK (rating >= 1.0 AND rating <= 5.0) NOT NULL,
+    total_rooms INT NOT NULL,
+    booked_rooms INT
+
 );
 
-CREATE TABLE if not exists booking
+CREATE TABLE IF NOT EXISTS bookings
 (
-    id             SERIAL PRIMARY KEY,
-    user_id        INT            NOT NULL,
-    hotel_id INT NOT NULL,
+    id             BIGSERIAL PRIMARY KEY,
+    user_id        BIGINT         NOT NULL,
+    hotel_id       BIGINT         NOT NULL,
     check_in_date  DATE           NOT NULL,
     check_out_date DATE           NOT NULL,
     total_price    DECIMAL(10, 2) NOT NULL,
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN default true,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE
+    FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE
 );
 
-CREATE TABLE if not exists review
+CREATE TABLE IF NOT EXISTS reviews
 (
-    id         SERIAL PRIMARY KEY,
-    hotel_id   INT NOT NULL,
-    user_id    INT NOT NULL,
+    id         BIGSERIAL PRIMARY KEY,
+    hotel_id   BIGINT                                  NOT NULL,
+    user_id    BIGINT                                  NOT NULL,
     rating     INT CHECK (rating >= 1 AND rating <= 5) NOT NULL,
     comment    TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (hotel_id) REFERENCES hotel (id) ON DELETE CASCADE,
+    FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-
-create table if not exists hotels_images
+CREATE TABLE IF NOT EXISTS hotels_images
 (
-    hotel_id bigint       not null,
-    image    varchar(255) not null,
-    constraint fk_hotels_images_hotels foreign key (hotel_id) references hotel (id) on delete cascade on update no action
+    hotel_id BIGINT       NOT NULL,
+    image    VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_hotels_images_hotels FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE
 );
 
-create table if not exists users_roles
+CREATE TABLE IF NOT EXISTS users_roles
 (
-    user_id bigint       not null,
-    role    varchar(255) not null,
-    primary key (user_id, role),
-    constraint fk_users_roles_users foreign key (user_id) references users (id) on delete cascade on update no action
+    user_id BIGINT       NOT NULL,
+    role    VARCHAR(255) NOT NULL,
+    PRIMARY KEY (user_id, role),
+    CONSTRAINT fk_users_roles_users FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -15,6 +16,8 @@ public class BookingDto {
 
     @NotNull(message = "User ID must not be null")
     private Long userId;
+
+    private BigDecimal totalPrice;
 
     @NotNull(message = "Check-in date must not be null")
     @Future(message = "Check-in date must be in the future")
